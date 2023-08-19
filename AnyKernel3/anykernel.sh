@@ -4,22 +4,22 @@
 ## AnyKernel setup
 # begin properties
 properties() { '
-kernel.string=SUPER.KERNEL GINKGO
-do.devicecheck=0
+kernel.string=SUPER.KERNEL GINKGO [CLO]
+do.devicecheck=1
 do.modules=0
 do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=vayu
-device.name2=bhima
-supported.versions=
+device.name1=ginkgo
+device.name2=willow
+supported.versions=11.0-14.0
+supported.patchlevels=
 '; } # end properties
 
 # shell variables
 block=/dev/block/bootdevice/by-name/boot;
-is_slot_device=auto;
+is_slot_device=0;
 ramdisk_compression=auto;
-patch_vbmeta_flag=auto;
 
 
 ## AnyKernel methods (DO NOT CHANGE)
@@ -34,31 +34,7 @@ set_perm_recursive 0 0 750 750 $ramdisk/init* $ramdisk/sbin;
 
 
 ## AnyKernel install
-#dump_boot;
-
-# begin ramdisk changes
-
-# end ramdisk changes
-
-#write_boot;
-## end boot install
-
-
-# shell variables
-#block=vendor_boot;
-#is_slot_device=1;
-#ramdisk_compression=auto;
-#patch_vbmeta_flag=auto;
-
-# reset for vendor_boot patching
-#reset_ak;
-
-
-## AnyKernel vendor_boot install
-split_boot; # skip unpack/repack ramdisk since we don't need vendor_ramdisk access
-
-flash_boot;
-
-flash_dtbo;
-## end vendor_boot install
+dump_boot;
+write_boot;
+## end install
 
